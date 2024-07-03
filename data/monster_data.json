@@ -1,0 +1,241 @@
+{
+    "monsters": [
+      {
+        "id": 1,
+        "name": "Leafling",
+        "type": "Grass",
+        "baseStats": {
+          "hp": 45,
+          "attack": 49,
+          "defense": 49,
+          "speed": 45,
+          "specialAttack": 65,
+          "specialDefense": 65
+        },
+        "statGrowth": {
+          "hp": 3,
+          "attack": 2,
+          "defense": 2,
+          "speed": 2,
+          "specialAttack": 3,
+          "specialDefense": 3
+        },
+        "xpYield": 64,
+        "xpGrowth": {
+          "type": "Medium Fast",
+          "formula": "level^3"
+        },
+        "moves": [
+          {
+            "moveId": 1,
+            "name": "Tackle",
+            "type": "Normal",
+            "power": 40,
+            "accuracy": 100,
+            "levelLearned": 1
+          },
+          {
+            "moveId": 2,
+            "name": "Growl",
+            "type": "Normal",
+            "power": 0,
+            "accuracy": 100,
+            "levelLearned": 1
+          },
+          {
+            "moveId": 3,
+            "name": "Vine Whip",
+            "type": "Grass",
+            "power": 45,
+            "accuracy": 100,
+            "levelLearned": 5
+          },
+          {
+            "moveId": 4,
+            "name": "Razor Leaf",
+            "type": "Grass",
+            "power": 55,
+            "accuracy": 95,
+            "levelLearned": 12
+          },
+          {
+            "moveId": 5,
+            "name": "Solar Beam",
+            "type": "Grass",
+            "power": 120,
+            "accuracy": 100,
+            "levelLearned": 20
+          }
+        ],
+        "evolution": {
+          "level": 16,
+          "evolvesTo": 2
+        }
+      },
+      {
+        "id": 2,
+        "name": "Treebranch",
+        "type": "Grass",
+        "baseStats": {
+          "hp": 60,
+          "attack": 62,
+          "defense": 63,
+          "speed": 60,
+          "specialAttack": 80,
+          "specialDefense": 80
+        },
+        "statGrowth": {
+          "hp": 3,
+          "attack": 2,
+          "defense": 2,
+          "speed": 2,
+          "specialAttack": 3,
+          "specialDefense": 3
+        },
+        "xpYield": 142,
+        "xpGrowth": {
+          "type": "Medium Fast",
+          "formula": "level^3"
+        },
+        "moves": [
+          {
+            "moveId": 1,
+            "name": "Tackle",
+            "type": "Normal",
+            "power": 40,
+            "accuracy": 100,
+            "levelLearned": 1
+          },
+          {
+            "moveId": 2,
+            "name": "Growl",
+            "type": "Normal",
+            "power": 0,
+            "accuracy": 100,
+            "levelLearned": 1
+          },
+          {
+            "moveId": 3,
+            "name": "Vine Whip",
+            "type": "Grass",
+            "power": 45,
+            "accuracy": 100,
+            "levelLearned": 5
+          },
+          {
+            "moveId": 4,
+            "name": "Razor Leaf",
+            "type": "Grass",
+            "power": 55,
+            "accuracy": 95,
+            "levelLearned": 12
+          },
+          {
+            "moveId": 5,
+            "name": "Solar Beam",
+            "type": "Grass",
+            "power": 120,
+            "accuracy": 100,
+            "levelLearned": 20
+          },
+          {
+            "moveId": 6,
+            "name": "Leaf Storm",
+            "type": "Grass",
+            "power": 130,
+            "accuracy": 90,
+            "levelLearned": 30
+          }
+        ],
+        "evolution": {
+          "level": 32,
+          "evolvesTo": 3
+        }
+      },
+      {
+        "id": 3,
+        "name": "Forestgiant",
+        "type": "Grass",
+        "baseStats": {
+          "hp": 80,
+          "attack": 82,
+          "defense": 83,
+          "speed": 80,
+          "specialAttack": 100,
+          "specialDefense": 100
+        },
+        "statGrowth": {
+          "hp": 3,
+          "attack": 2,
+          "defense": 2,
+          "speed": 2,
+          "specialAttack": 3,
+          "specialDefense": 3
+        },
+        "xpYield": 236,
+        "xpGrowth": {
+          "type": "Medium Fast",
+          "formula": "level^3"
+        },
+        "moves": [
+          {
+            "moveId": 1,
+            "name": "Tackle",
+            "type": "Normal",
+            "power": 40,
+            "accuracy": 100,
+            "levelLearned": 1
+          },
+          {
+            "moveId": 2,
+            "name": "Growl",
+            "type": "Normal",
+            "power": 0,
+            "accuracy": 100,
+            "levelLearned": 1
+          },
+          {
+            "moveId": 3,
+            "name": "Vine Whip",
+            "type": "Grass",
+            "power": 45,
+            "accuracy": 100,
+            "levelLearned": 5
+          },
+          {
+            "moveId": 4,
+            "name": "Razor Leaf",
+            "type": "Grass",
+            "power": 55,
+            "accuracy": 95,
+            "levelLearned": 12
+          },
+          {
+            "moveId": 5,
+            "name": "Solar Beam",
+            "type": "Grass",
+            "power": 120,
+            "accuracy": 100,
+            "levelLearned": 20
+          },
+          {
+            "moveId": 6,
+            "name": "Leaf Storm",
+            "type": "Grass",
+            "power": 130,
+            "accuracy": 90,
+            "levelLearned": 30
+          },
+          {
+            "moveId": 7,
+            "name": "Frenzy Plant",
+            "type": "Grass",
+            "power": 150,
+            "accuracy": 90,
+            "levelLearned": 40
+          }
+        ],
+        "evolution": null
+      }
+    ]
+  }
