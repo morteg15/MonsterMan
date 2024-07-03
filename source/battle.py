@@ -23,9 +23,9 @@ class Battle:
         self.action_box = SpriteLoader.load_ui_element("action_box")
         self.health_bar = SpriteLoader.load_ui_element("health_bar")
 
-        # Load monster sprites with increased size
-        self.player_monster_sprite = SpriteLoader.load_monster_sprite(f"{self.player_monster.name.lower()}_back", (160, 160))
-        self.wild_monster_sprite = SpriteLoader.load_monster_sprite(self.wild_monster.name.lower(), (160, 160))
+        # Load monster sprites with increased size (200x200)
+        self.player_monster_sprite = SpriteLoader.load_monster_sprite(f"{self.player_monster.name.lower()}_back", (200, 200))
+        self.wild_monster_sprite = SpriteLoader.load_monster_sprite(self.wild_monster.name.lower(), (200, 200))
 
         # Load battle music
         SpriteLoader.load_music("battle_music.mp3")
@@ -90,41 +90,44 @@ class Battle:
         name_text = self.font.render(monster.name, True, (0, 0, 0))
         hp_text = self.font.render(f"HP: {monster.stats['hp']}/{monster.base_stats['hp']}", True, (0, 0, 0))
         
-        if is_player:
-            self.screen.blit(name_text, (x + 5, y + 5))
-            self.screen.blit(hp_text, (x + 5, y + 25))
-        else:
-            self.screen.blit(name_text, (x + 95, y + 5))
-            self.screen.blit(hp_text, (x + 95, y + 25))
+        self.screen.blit(name_text, (x + 5, y + 5))
+        self.screen.blit(hp_text, (x + 5, y + 25))
 
     def draw(self):
         self.screen.blit(self.background, (0, 0))
 
+        # Constants for positioning
+        action_box_width = 200
+        action_box_height = 150
+        health_bar_height = 50
+        log_box_width = 300
+
+        # Calculate positions
+        screen_width, screen_height = self.screen.get_size()
+        action_box_pos = (10, screen_height - action_box_height - 10)
+        health_bar_pos = (10, action_box_pos[1] - health_bar_height - 10)
+        player_monster_pos = (10, health_bar_pos[1] - 200 - 10)
+        log_box_pos = (action_box_width + 20, screen_height - action_box_height - 10)
+        wild_monster_pos = (screen_width - 210, 50)
+
         # Draw player monster sprite
-        player_monster_pos = (50, self.screen.get_height() - 200)
-        self.screen.blit(self.player_monster_sprite, player_monster_pos)
+        if self.player_monster_sprite:
+            self.screen.blit(self.player_monster_sprite, player_monster_pos)
+        else:
+            pygame.draw.rect(self.screen, (0, 255, 0), (*player_monster_pos, 200, 200))  # Green rectangle as fallback
 
         # Draw wild monster sprite
-        wild_monster_pos = (self.screen.get_width() - 210, 50)
-        self.screen.blit(self.wild_monster_sprite, wild_monster_pos)
+        if self.wild_monster_sprite:
+            self.screen.blit(self.wild_monster_sprite, wild_monster_pos)
+        else:
+            pygame.draw.rect(self.screen, (255, 0, 0), (*wild_monster_pos, 200, 200))  # Red rectangle as fallback
 
         # Draw health bars
-        self.draw_health_bar(self.player_monster, 50, self.screen.get_height() - 230, True)
-        self.draw_health_bar(self.wild_monster, self.screen.get_width() - 210, 20, False)
+        self.draw_health_bar(self.player_monster, *health_bar_pos, True)
+        self.draw_health_bar(self.wild_monster, wild_monster_pos[0], wild_monster_pos[1] - health_bar_height - 10, False)
         
-        # Draw battle log
-        if self.log_box:
-            log_box_pos = (10, self.screen.get_height() - 150)
-            self.screen.blit(self.log_box, log_box_pos)
-            log_y = log_box_pos[1] + 10
-            for log in self.battle_log[-3:]:
-                log_surface = self.font.render(log, True, (0, 0, 0))
-                self.screen.blit(log_surface, (log_box_pos[0] + 10, log_y))
-                log_y += 30
-
-        # Draw action prompts
+        # Draw action box
         if self.action_box:
-            action_box_pos = (self.screen.get_width() - 150, self.screen.get_height() - 150)
             self.screen.blit(self.action_box, action_box_pos)
             actions = ["1: Attack", "2: Heal", "3: Catch", "4: Run"]
             action_y = action_box_pos[1] + 10
@@ -132,6 +135,15 @@ class Battle:
                 action_surface = self.font.render(action, True, (0, 0, 0))
                 self.screen.blit(action_surface, (action_box_pos[0] + 10, action_y))
                 action_y += 30
+
+        # Draw battle log
+        if self.log_box:
+            self.screen.blit(self.log_box, log_box_pos)
+            log_y = log_box_pos[1] + 10
+            for log in self.battle_log[-5:]:  # Show last 5 log entries
+                log_surface = self.font.render(log, True, (0, 0, 0))
+                self.screen.blit(log_surface, (log_box_pos[0] + 10, log_y))
+                log_y += 30
 
     def is_over(self):
         return self.battle_over

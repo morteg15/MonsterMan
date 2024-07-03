@@ -5,6 +5,7 @@ from world import World
 from battle import Battle
 from monster_manager import MonsterManager
 from sprite_loader import SpriteLoader
+from monster_viewer import MonsterViewer
 
 pygame.init()
 pygame.mixer.init()
@@ -27,22 +28,26 @@ monster_manager = MonsterManager()
 player = None
 world = None
 battle = None
+monster_viewer = None
 
 # Game states
 START_SCREEN = 0
 PLAYING = 1
 BATTLE = 2
 GAME_OVER = 3
+VIEWING_MONSTERS = 4
 
 current_state = START_SCREEN
 
 clock = pygame.time.Clock()
 
 def start_new_game():
-    global player, world, current_state
+    global player, world, current_state, battle, monster_viewer
     player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, monster_manager)
     world = World(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, monster_manager)
+    monster_viewer = MonsterViewer(screen, player)
     current_state = PLAYING
+    battle = None
     SpriteLoader.load_music("overworld_music.mp3")
     pygame.mixer.music.play(-1)  # Loop indefinitely
 
@@ -77,7 +82,9 @@ while running:
                 if event.key == pygame.K_SPACE:
                     start_new_game()
             elif current_state == PLAYING:
-                if not battle:
+                if event.key == pygame.K_m:
+                    current_state = VIEWING_MONSTERS
+                elif not battle:
                     old_x, old_y = player.x, player.y
                     if event.key == pygame.K_UP:
                         player.move(0, -TILE_SIZE, world)
@@ -106,6 +113,9 @@ while running:
             elif current_state == GAME_OVER:
                 if event.key == pygame.K_r:
                     start_new_game()
+            elif current_state == VIEWING_MONSTERS:
+                if not monster_viewer.handle_input(event):
+                    current_state = PLAYING
 
     # Game state updates
     if current_state == PLAYING:
@@ -137,6 +147,8 @@ while running:
                 pygame.mixer.music.play(-1)
     elif current_state == GAME_OVER:
         draw_game_over_screen()
+    elif current_state == VIEWING_MONSTERS:
+        monster_viewer.draw()
 
     # Update display
     pygame.display.flip()

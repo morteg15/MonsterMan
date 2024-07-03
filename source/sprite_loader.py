@@ -20,8 +20,16 @@ class SpriteLoader:
         return SpriteLoader.load_sprite("hero", "hero.png", size)
 
     @staticmethod
-    def load_monster_sprite(monster_name, size=(80, 80)):
-        return SpriteLoader.load_sprite("monsters", f"{monster_name}.png", size)
+    def load_monster_sprite(monster_name, size=(200, 200)):
+        # Try to load the specific sprite (front or back)
+        sprite = SpriteLoader.load_sprite("monsters", f"{monster_name}.png", size)
+        
+        # If the specific sprite doesn't exist, try to load the default sprite
+        if sprite is None:
+            default_name = monster_name.split('_')[0]  # Remove '_back' if present
+            sprite = SpriteLoader.load_sprite("monsters", f"{default_name}.png", size)
+        
+        return sprite
 
     @staticmethod
     def load_background_sprite(size=(400, 400)):
